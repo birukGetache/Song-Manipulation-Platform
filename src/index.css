@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Teko:wght@300..700&display=swap');
+body{
+  background-color: #e3dac9;
+  margin-top: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+#root{
+  position: relative;
+}
