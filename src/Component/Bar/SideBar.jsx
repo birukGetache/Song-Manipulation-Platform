@@ -31,30 +31,37 @@ const ProfileImg = styled.img`
 `;
 const Name= styled.p`
 font-family: "Teko", sans-serif;
-padding-top:30%;
+padding-top:20%;
 text-align: center;
 margin-bottom:4px;
 `
 const Email= styled.p`
 font-family: "Teko", sans-serif;
 margin-botom:0;
-font-size: 13px;
-padding-left:45px;
-margin-top:3px;
+font-size: 15px;
+padding-left:4px;
+margin-top:0px;
 `
 const EmailIcon= styled(IoMdMail)`
-margin-left:20px;
 float:left;
 margin-top:1px;
 font-size:13px;
 color: #black;
+margin-left:64px;
+`
+const DesIntro = styled.div`
+display:grid;`
+const EmailContainer= styled.div`
+display:flex;
 `
 const SideBar = () => {
   return (
     <SideMain>
      <ImgContainer><ProfileImg src={img} alt='addis music player' /></ImgContainer> 
-      <Name>Addis Software</Name>
-     <EmailIcon></EmailIcon> <Email>burab@gamil.com</Email>
+     <DesIntro>
+     <Name>Addis Software</Name>
+    <EmailContainer> <EmailIcon></EmailIcon> <Email>burab@gamil.com</Email></EmailContainer>
+     </DesIntro>
       <Broswer></Broswer>
       <Discover></Discover>
     </SideMain>
