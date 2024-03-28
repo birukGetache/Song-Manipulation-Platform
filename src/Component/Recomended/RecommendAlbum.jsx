@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import img from '../../assets/react.svg';
 import img1 from '../../assets/Auto.jpg';
 import img2 from '../../assets/cartoon.webp';
 import img3 from '../../assets/crystal-ball.jpg';
@@ -11,7 +10,7 @@ import { useState, useRef, useEffect } from 'react';
 
 const MusicList = styled.div`
   display: flex;
-  width: 900px;
+  width: 800px;
   overflow-x: scroll;
   transform: rotate(${(props) => props.rotation}deg);
   transition: transform 0.5s;
@@ -19,11 +18,15 @@ const MusicList = styled.div`
     display: none;
   }
 `;
-
+const Main = styled.div`
+background-color:white;
+border-radius:10px;
+border-shadow:1px;
+margin-top:30px;
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);`
 const MusicCard = styled.span`
   width: 180px;
   height: 180px;
-  margin-right: 10px;
   grid-gap: 20px;
   padding: 20px;
 `;
@@ -31,7 +34,7 @@ const MusicCard = styled.span`
 const Addition = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 20px;
   padding: 10px;
   flex: none;
@@ -39,20 +42,33 @@ const Addition = styled.div`
 
 const Arrow = styled(IoIosArrowBack)`
   cursor: pointer;
+  strike-width:200;
+  font-size:30px;
+  color:black;
+  font-weight:lighter;
 `;
 
 const ArrowSecond = styled(IoIosArrowForward)`
-  cursor: pointer;
-`;
-
-const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
+cursor: pointer;
+strike-width:200;
+font-size:30px;
+color:black;
+font-weight:lighter;
 `;
 
 const P = styled.p`
-  font-family: "Teko", sans-serif;
-  font-size:20px;
+font-family: "Teko", sans-serif;
+font-size: 20px;
+margin-top: 0;
+text-align:center;
+line-height: 45px;//to center vertically same with height
+background-color:#F8EEC9;
+margin-left:300px;
+margin-right:300px;
+height:45px;
+justify-content:center;
+border-radius: 0 0 30px 30px;
+margin-bottom:-9px;
 `;
 
 const Image = styled.img`
@@ -73,7 +89,21 @@ const Title= styled.p`
 padding-top:0;
 margin-top:0;
 font-family:"Teko" , sans-serif `
-
+const Container= styled.div`
+display:grid;
+grid-template-columns:1fr 7fr 1fr;
+justify-content:center;
+align-items:center;
+`
+const ArrowCont = styled.div`
+width:50px;
+height:50px;
+background-color:#cfd8ed;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+`
 const RecommendAlbum = () => {
   const [scrollOffset, setScrollOffset] = useState(0);
   const musicListRef = useRef(null);
@@ -90,13 +120,13 @@ const RecommendAlbum = () => {
 
   const handleMoveLeft = () => {
     if (musicListRef.current) {
-      musicListRef.current.scrollLeft -= 900; // Scroll 900px to the left
+      musicListRef.current.scrollLeft -= 800; // Scroll 900px to the left
     }
   };
   
   const handleMoveRight = () => {
     if (musicListRef.current) {
-      musicListRef.current.scrollLeft += 900; // Scroll 900px to the right
+      musicListRef.current.scrollLeft += 800; // Scroll 900px to the right
     }
   };
   
@@ -105,14 +135,16 @@ const RecommendAlbum = () => {
 
   return (
     <>
-  <div>
-      <Head>
-        <P>Top Music</P>
-        <div>
-          <Arrow onClick={handleMoveLeft} />
-          <ArrowSecond onClick={handleMoveRight} />
-        </div>
-      </Head>
+    <Main>
+
+  
+        <P>Recommended Album</P>
+
+      <Container>
+        <ArrowCont>
+           <Arrow onClick={handleMoveLeft} />
+        </ArrowCont>
+    
       <MusicList rotation={rotation} ref={musicListRef}>
         <Addition>
           <MusicCard>
@@ -124,6 +156,10 @@ const RecommendAlbum = () => {
             <Title>titile</Title>
           </MusicCard>
 
+          <MusicCard>
+            <Image src={img2} alt="image for music" />
+            <Title>titile</Title>
+          </MusicCard>
           <MusicCard>
             <Image src={img2} alt="image for music" />
             <Title>titile</Title>
@@ -152,7 +188,11 @@ const RecommendAlbum = () => {
           </MusicCard>
         </Addition>
       </MusicList>
-      </div>
+      <ArrowCont>
+      <ArrowSecond onClick={handleMoveRight} />
+      </ArrowCont>
+      </Container>
+      </Main>
     </>
   );
 };

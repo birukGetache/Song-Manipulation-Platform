@@ -13,18 +13,18 @@ const Des = styled.p`
 font-size: 18px;
 font-family: "Teko", sans-serif;
 margin-top:0;
-padding-left:50px;
+padding-left:10px;
 font-weight:lighter;
 `
 const Favorite= styled(FaRegHeart)`
-margin-left:30px;
+margin-left:-30px;
 float:left;
 padding-top:0px;
 padding-bottom:2px;
 color:black;
 stroke-width:20;`
 const His= styled(History)`
-margin-left:30px;
+margin-left:-30px;
 float:left;
 padding-top:0px;
 padding-bottom:2px;
@@ -33,12 +33,16 @@ font-size:18px;
 font-weight:bold;
 stroke-width:20;
 `
+const Icons = styled.div`
+ display:flex;
+ justify-content:center;
+ `
 const Discover =()=>{
    return(
     <>
     <Discovers>Discover</Discovers>
-    <Favorite size={15}></Favorite><Des>Favorite</Des>
-    <His size={15}></His><Des>History</Des>
+    <Icons><Favorite size={15}></Favorite><Des>Favorite</Des></Icons>
+    <Icons> <His size={15}></His><Des>History</Des></Icons>
     </>
    
    )

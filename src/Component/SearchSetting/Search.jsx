@@ -8,11 +8,11 @@ display:flex;
 `
 const Setting= styled(HiOutlineCog)`
 font-size:30px;
-padding-top:5px;
+margin-top:15px;
 margin-left:45px;`
 const Notifications= styled(NotificationsIcon)`
 font-size:30px;
-padding-top:5px;
+margin-top:15px;
 margin-left:45px;
 margin-right:45px;
 `

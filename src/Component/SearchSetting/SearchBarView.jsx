@@ -23,11 +23,29 @@ const Search = styled.div`
   display: flex;  
   align-items: center;
   width: 100%;
+  border:none;
+  height:50px;
+    &:focus {
+    border:none; /* Set border to transparent when focused */
+  }
 `
 
 const SearchBar = styled.input`
   padding: 1rem 1rem 1rem 3.5rem;
+  font-family: "Teko" ,sans- serifs;
+  font-size:19px;
   width: 100%;
-`
+  border-radius: 50px;
+  height: 40px;
+  border: none;
+  outline: none; /* Remove default focus outline */
+  transition: border-color 0.2s ease-in-out; /* Smooth transition for border color change */
+
+  &:focus {
+    border: none; /* Set border to none when focused */
+    box-shadow: none; /* Optionally, remove any box shadow when focused */
+  }
+`;
+
 
 export default SearchBarView;
