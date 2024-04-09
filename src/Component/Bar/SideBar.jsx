@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import img from '../../assets/addis.svg';
+import img1 from '../../assets/Auto.jpg';
 import Broswer from './Broswer';
 import { IoMdMail } from "react-icons/io";
 import AddMusic from './AddMusic';
@@ -85,9 +86,9 @@ justify-content:center;
 const SideBar = () => {
   return (
     <SideMain>
-     <ImgContainer><ProfileImg src={img} alt='addis music player' /></ImgContainer> 
+     <ImgContainer><ProfileImg src={img1} alt='addis music player' /></ImgContainer> 
      <DesIntro>
-     <Name>Addis Software</Name>
+     <Name>Biruk Software</Name>
     <EmailContainer> <EmailIcon></EmailIcon> <Email>burab@gamil.com</Email></EmailContainer>
      </DesIntro>
       <Broswer></Broswer>

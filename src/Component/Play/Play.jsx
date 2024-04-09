@@ -9,7 +9,7 @@ import PlaylistPlayIcon from '@mui/icons-material/PlaylistPlay';
 import { mdiHeart } from '@mdi/react';
 import { MdRepeat } from 'react-icons/md';
 import { useState } from "react";
-
+import { useDispatch, useSelector } from 'react-redux';
 const Image= styled.img`
 width:100%;
 height:100%;
@@ -52,7 +52,7 @@ overflow:hidden;
 `
 const Play =()=>{
     const [isPlaying, setIsPlaying] = useState(false);
-
+    const fileName = useSelector((state) => state.topMusic.fileName);
     const handleTogglePlay = () => {
       setIsPlaying(!isPlaying);
     };
@@ -61,7 +61,7 @@ const Play =()=>{
          <ImageContainer> <Image src={img} alt="these is Image to play"></Image></ImageContainer> <Des><Title>Lorem</Title><Artist>Artist</Artist></Des>
           <div>
       <Audio controls={false} autoPlay={isPlaying} loop>
-        <source src={audioFile} type="audio/mpeg" />
+        <source src={`C:/Users/User/Documents/Songs/song/src/assets/${fileName}`} type="audio/mpeg" />
         Your browser does not support the audio element.
       </Audio>
       <div>

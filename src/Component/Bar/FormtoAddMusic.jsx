@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { RiCloseLine } from 'react-icons/ri';
+import { collection, addDoc} from 'firebase/firestore';
+import {  ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL } from 'firebase/storage';
+import {db,storage} from '../Firebase';
 const PopupWrapper = styled.div`
   position: fixed;
   top: 50%;
@@ -57,23 +61,7 @@ const ArtistIntput = styled.input`
   width:90%;
   margin-left:0;
 `;
-
-
-const FormtoAddMusic = (props) => {
-  const [file, setFile] = useState(null);
-
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setFile(selectedFile);
-  };
-    const {setPop} = props;
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (file) {
-      onSubmit(file);
-    }
-  };
-  const Btn = styled.button`
+const Btn = styled.button`
   background-color:transparent;
   border:none;
   
@@ -94,9 +82,53 @@ const FormtoAddMusic = (props) => {
  font-size:20px;
  margin:5px;
  width:100%;`
- const close=()=>{
-  setPop(false);
- }
+
+
+const FormtoAddMusic = (props) => {
+  const [file, setFile] = useState(null);
+  const [artist, setArtist] = useState(null);
+
+  const handleArtistChange = (e) => {
+    setArtist(e.target.value);
+  };
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile); // Store the file object directly
+  };
+
+  const { setPop } = props;
+
+  const close = () => {
+    setPop(false);
+  };
+
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  if (file && artist) {
+    try {
+      const storageRef = ref(storage, `assets/${file.name}`);
+      await uploadBytes(storageRef, file);
+      const fileUrl = await getDownloadURL(storageRef);
+      
+      // Now, you can store the file URL in Firestore
+      const docRef = await addDoc(collection(db, 'Music'), {
+        fileName: file.name,
+        artist: artist,
+        fileUrl: fileUrl,
+        Play: 0,
+        favorite: 0
+      });
+
+      console.log('Document written with ID: ', docRef.id);
+      setPop(false);
+    } catch (error) {
+      console.error('Error adding document: ', error.message);
+    }
+  } else {
+    console.error('File or artist is missing');
+  }
+};
   return (
     <PopupWrapper>
       <Form onSubmit={handleSubmit}>
@@ -104,7 +136,7 @@ const FormtoAddMusic = (props) => {
          <Name>Music:</Name> 
          <FileInput type="file" onChange={handleFileChange} />
          <Name>Artist:</Name>    
-          <ArtistIntput type="Text" onChange={handleFileChange} />
+          <ArtistIntput type="Text" onChange={handleArtistChange} />
         <Submit type="submit">Submit</Submit>
       </Form>
     </PopupWrapper>

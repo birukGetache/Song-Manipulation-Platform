@@ -1,10 +1,12 @@
-import React, { useRef } from 'react';
+// PopularMusic.js
+import React, { useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import { FaPlay, FaChevronUp, FaChevronDown } from 'react-icons/fa';
 import { RiDeleteBinLine } from 'react-icons/ri';
-import img from "../../assets/R.jpg";
 import { FaHeart } from 'react-icons/fa';
-
+import { fetchMusicFiles } from './musicSlice';
+import img1 from '../../assets/Auto.jpg';
 const H = styled.p`
   font-family: "Teko", sans-serif;
   font-size: 20px;
@@ -14,28 +16,18 @@ const H = styled.p`
   background-color:#F8EEC9;
   margin-left:15px;
   margin-right:15px;
-  `
+`;
 
 const Main = styled.div`
   margin-left: 15px;
   max-height: 150px; /* Set a maximum height to enable scrolling */
-  /*overflow-y: auto; /* Enable vertical scrolling */
   overflow-x: hidden; /* Hide horizontal scrollbar */
-  scrollbar-width: thin; /* Width of the scrollbar */
-  scrollbar-color: rgba(0, 0, 0, 0.3) transparent; /* Color of the scrollbar */*/
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
 `;
 
 const Music = styled.div`
   display: grid;
   grid-template-columns: auto auto auto auto auto;
   grid-gap: 7px;
-  ::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const Profile = styled.div`
@@ -76,8 +68,6 @@ const PopularMain = styled.div`
   margin-top:20px;
   border-radius:30px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
-
-  
 `;
 
 const ScrollButton = styled.button`
@@ -89,12 +79,22 @@ const ScrollButton = styled.button`
  margin-left:auto;
  margin-right:auto;
 `;
+
 const Button = styled.div`
-display:flex;
-justiy-content:center;
-`
+  display:flex;
+  justify-content:center;
+`;
+
 const PopularMusic = () => {
-  const mainRef = useRef(null);
+  const dispatch = useDispatch();
+  const musicFiles = useSelector((state) => state.music.musicFiles); 
+  console.log(musicFiles)
+  const musicStatus = useSelector((state) => state.music.status); 
+  const musicListRef = useRef(null);
+
+  useEffect(() => {
+    dispatch(fetchMusicFiles());
+  }, []);
 
   const handleScroll = (direction) => {
     const scrollAmount = direction === 'up' ? -100 : 100; // Adjust scroll amount as needed
@@ -108,104 +108,27 @@ const PopularMusic = () => {
       <PopularMain>
         <H>Popular</H>
         <Button>
-        <ScrollButton onClick={() => handleScroll('up')}>
-          <FaChevronUp />
-        </ScrollButton>
+          <ScrollButton onClick={() => handleScroll('up')}>
+            <FaChevronUp />
+          </ScrollButton>
         </Button>
-       
-        <Main ref={mainRef}>
+        <Main>
           <Music>
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
-          <Play />
-<Profile><Image src={img} alt="profile" /></Profile>
-<Title>Loremss.....</Title>
-<RiDeleteBinLine/>
-<FaHeart />
+            {musicFiles.map((element,index) => (
+              <React.Fragment key={index}>
+                <Play />
+                <Profile><Image src={img1} alt="profile" /></Profile>
+                <Title>{element.title}</Title>
+                <RiDeleteBinLine/>
+                <FaHeart />
+              </React.Fragment>
+            ))}
           </Music>
         </Main>
         <Button>
-        <ScrollButton onClick={() => handleScroll('down')}>
-          <FaChevronDown />
-        </ScrollButton>
+          <ScrollButton onClick={() => handleScroll('down')}>
+            <FaChevronDown />
+          </ScrollButton>
         </Button>
       </PopularMain>
     </>
@@ -213,5 +136,3 @@ const PopularMusic = () => {
 };
 
 export default PopularMusic;
-
-

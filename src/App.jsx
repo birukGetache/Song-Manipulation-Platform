@@ -6,16 +6,19 @@ import MusicTop from './Component/TopMusic/MusicTop';
 import Popular from  './Component/Popular/Popular';
 import RecommendAlbum from './Component/Recomended/RecommendAlbum';
 import Play from './Component/Play/Play';
+import { Provider } from 'react-redux';
+import store from './store';
  const SideBarMain= styled(SideBar)`
   float:right;
   `
   const SearchBar = styled(Search)`
   display:inline;
   `
-  const Main= styled.div`
-display:grid;
-grid-template-columns: 1fr 3fr;
-  `
+  const Main = styled.div`
+  display: grid;
+  grid-template-columns: minmax(auto, 1fr) 3fr;
+`;
+
   const SpecialMusic = styled.div`
   display:flex;
   grid-template-columns:auto auto;`
@@ -23,6 +26,7 @@ function App() {
 
   return (
     <>
+      <Provider store={store}>
     <Main>
       <SideBarMain></SideBarMain>
       <div>
@@ -36,6 +40,7 @@ function App() {
    
     </Main>
      <Play></Play>
+     </Provider>
     </>
   )
 }
